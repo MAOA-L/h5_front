@@ -64,6 +64,7 @@
             var number = e['number']
             var departure_station = e['departure_station']
             var destination = e['destination']
+            var mark = e['mark']
             var station = ''
             if(departure_station){
                 station += departure_station
@@ -75,7 +76,7 @@
                 '            <div class="collapsible-header">\n' +
                 '                <i class="material-icons">directions_bus</i>\n' + number +
                 '                <span class="badge">' + station + '</span></div>\n' +
-                '            <div class="collapsible-body"><p>' + departure_station + '</p></div>\n' +
+                '            <div class="collapsible-body"><p>' + mark + '</p></div>\n' +
                 '        </li>'
             $('.collapsible').append(s)
         })
