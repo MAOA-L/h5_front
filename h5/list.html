@@ -66,21 +66,32 @@
             var destination = e['destination']
             var mark = e['mark']
             var station = ''
-            if(departure_station){
+            var id = e['id']
+            if (departure_station) {
                 station += departure_station
             }
-            if(destination){
+            if (destination) {
                 station += destination
             }
-            s = '<li>\n' +
+            var s = '<li>\n' +
                 '            <div class="collapsible-header">\n' +
                 '                <i class="material-icons">directions_bus</i>\n' + number +
                 '                <span class="badge">' + station + '</span></div>\n' +
-                '            <div class="collapsible-body"><p>' + mark + '</p></div>\n' +
-                '        </li>'
+                '            <div class="collapsible-body"><p>' +
+                '<button class="btn waves-effect waves-light" name="real_btn" data-id=' + id + '>查看实况' +
+                '<i class="material-icons right">send</i>\n' +
+                '</button>' +
+                '' + mark + '</p></div>\n' +
+                '</li>'
             $('.collapsible').append(s)
         })
     }
+
+    $(document).on('click', 'button[name="real_btn"]', function () {
+        console.log("a")
+        var a = $(this).attr('data-id')
+        M.toast({html: a, classes: 'rounded'})
+    })
 
 </script>
 </body>
