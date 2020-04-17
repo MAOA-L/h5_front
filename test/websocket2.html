@@ -1,0 +1,120 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>WebSoket Demo</title>
+        <script type="text/JavaScript">
+            // tips: WebSocket 调试脚本
+            var WebSocket = WebSocket || window.WebSocket || window.MozWebSocket;
+            // 验证浏览器是否支持WebSocket协议
+            if (!WebSocket) {
+                alert("WebSocket not supported by this browser!");
+            }
+            else {
+                var g_ws = null;
+                console.log("可以使用websocket")
+                function Display() {
+                    // 载入上次记录的数据 //...
+                    console.log("websocket 测试");
+                }
+
+                var log = function (s) {
+                    if (document.readyState !== "complete") {
+                        log.buffer.push(s);
+                    } else {
+                        document.getElementById("contentId").value += (s + "\n");
+                    }
+                }
+
+                function CreateConnect () {
+                    var msg = document.getElementById("wsUrlId");
+                    console.log("CreateConnect(), url: " + msg.value);
+                    var token_w = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiYjc4N2NlNDgtMjlkNy0xMWU5LWI5ZGEtMTQyZDI3ZjFmMDIyIiwidXNlcm5hbWUiOiIxMzYwNTg4MzMxNyIsImV4cCI6MTU4OTcwMzA5MywiZm9yIjoxLCJlbWFpbCI6bnVsbCwic291cmNlIjoyLCJwd2RfdmVyc2lvbiI6MywiaXNzdWVyIjoiemhyZC5uYnJkLmdvdi5jbiJ9.5yUqTGD8w2SOPYj6lUNkWc9Y28j7nBuSekr7tdrZmDA"
+                    var token_shi = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiY2MxOGNkNmEtMjYwZS0xMWU5LTg4NTYtMDAxNjNlMGNjZjNlIiwidXNlcm5hbWUiOiIxMzczODQzNTc0MyIsImV4cCI6MTU4OTcwMzkyMCwiZm9yIjoxLCJlbWFpbCI6bnVsbCwic291cmNlIjoyLCJwd2RfdmVyc2lvbiI6MSwiaXNzdWVyIjoiemhyZC5uYnJkLmdvdi5jbiJ9.WnL7_ov9VG5q6nlvnnwMtqJRZVJfY0nsX_pwVLW-iA4"
+                    var token_shi_test = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiY2MxOGNkNmEtMjYwZS0xMWU5LTg4NTYtMDAxNjNlMGNjZjNlIiwidXNlcm5hbWUiOiIxMzczODQzNTc0MyIsImV4cCI6MTU4OTcwMzcxMSwiZm9yIjoxLCJlbWFpbCI6bnVsbCwic291cmNlIjoyLCJwd2RfdmVyc2lvbiI6MywiaXNzdWVyIjoidGVzdF9qdHdfaXNzdWVyIn0.wGJ5poTFTuFAhOFa4YDdlOENH3YtmnXbMqhnZbliMfo"
+                    var token_zhang = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiOGUwN2E0OWUtZWZjNC0xMWU5LThjNmMtMDAxNjNlMGNjZjNlIiwidXNlcm5hbWUiOiIxODExMjkxNjY1MSIsImV4cCI6MTU4OTcwNTAyNiwiZm9yIjoxLCJlbWFpbCI6bnVsbCwic291cmNlIjoyLCJwd2RfdmVyc2lvbiI6MSwiaXNzdWVyIjoiemhyZC5uYnJkLmdvdi5jbiJ9.n8riscU7144FfKWgBbDkWoaY_wvNx1K18uKvtLjr8SA"
+                    var token_zyj_test = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZjQ3Yzc5YjAtMjQzYy0xMWU5LWI3YjUtZTBkNTVlOGYyZDlhIiwidXNlcm5hbWUiOiIxMzYwNTg4ODc4NyIsImV4cCI6MTU4OTcwNzk2NSwiZm9yIjoxLCJlbWFpbCI6bnVsbCwic291cmNlIjoyLCJwd2RfdmVyc2lvbiI6MSwiaXNzdWVyIjoidGVzdF9qdHdfaXNzdWVyIn0.uu6_yivTecod--IRRH-IdK7CLu8zTXd6tNNesg-vu7o"
+                    if (g_ws == null) {
+                        var wsUrlValue = msg.value;
+                        console.log(wsUrlValue)
+                        try {
+                            g_ws = new WebSocket(wsUrlValue);
+                            // 监听消息
+                            g_ws.onmessage = function (event) {
+                                //valueLabel.innerHTML+ = event.data;
+                                log("onmessage(), 接收到服务器消息: " + event.data);
+                            };
+                            // 打开 WebSocket
+                            g_ws.onclose = function (event) {
+                                //WebSocket Status:: Socket Closed
+                                log("onclose(), Socket 已关闭!");
+                                g_ws = null;
+                            };
+                            // 打开WebSocket
+                            g_ws.onopen = function (event) {
+                                //WebSocket Status:: Socket Open
+                                // 发送一个初始化消息
+//                            g_ws.send("Hello, Server!");
+                                log("onopen(), Socket 连接成功!");
+                            };
+                            g_ws.onerror = function (event) {
+                                //WebSocket Status:: Error was reported
+                                console.log(event)
+                                log("onerror(), Socket 发生错误!");
+                            };
+                        }
+                        catch (e) {
+                            g_ws = null;
+                            log("连接异常, 重置 websocket");
+                        }
+                    }
+                }
+
+                function SendMsg() {
+                    var msg = document.getElementById("messageId");
+                    console.log("SendMsg(), msg: " + msg.value);
+                    if (g_ws != null) {
+                        //alert(msg.value);
+                        log("发送 Socket 消息: " + msg.value);
+                        g_ws.send(msg.value);
+                    }
+                    else {
+                        log("Socket 还未创建!, msg: " + msg.value);
+                    }
+                }
+                function SendHeartBeat() {
+                    // console.log(">>>")
+                    if (g_ws != null) {
+                        //alert(msg.value);
+                        log("发送 Socket 心跳: ");
+                        g_ws.send(JSON.stringify({
+                            "command":"echo",
+                        }));
+                    }
+                    else {
+                        log("Socket 还未创建!, msg: ");
+                    }
+                }
+
+                function CloseConnect () {
+                    console.log("CloseConnect()");
+                    if (g_ws != null) {
+                        g_ws.close();
+                    }
+                }
+            }
+        </script>
+    </head>
+
+    <body>
+        <div id="valueLabel"></div>
+        <textarea rows="20" cols="50" id="contentId"></textarea>
+        <br/>
+        <input name="wsUrl" id="wsUrlId" style="width: 300px" value="ws://busapi.cyanzoy.top/chat/"/>
+        <button id="createButton" onClick="CreateConnect()">连接socket</button>
+        <button id="closeButton" onClick="CloseConnect()">断开socket</button>
+        <br/>
+        <input name="message" id="messageId" value="Hello, Server!"/>
+        <button id="sendButton" onClick="SendMsg()">Send</button>
+        <button id="sendHeartBeat" onClick="SendHeartBeat()">心跳</button>
+    </body>
+</html>
