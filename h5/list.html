@@ -9,6 +9,44 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        .div {
+            overflow: hidden;
+            height: 118px;
+        }
+
+        .box {
+            background: #eee;
+            padding: 10px 0;
+            white-space: nowrap; /*文本不会换行，文本会在在同一行上继续*/
+            overflow-y: auto; /*可滑动*/
+        }
+
+        /*自定义滚动条的伪对象选择器, CSS 可以隐藏滚动条*/
+        /*.box::-webkit-scrollbar{
+            display: none;
+        }*/
+        .box1 {
+            width: 8%;
+            margin-left: 3%;
+            height: 100px;
+            background: #fff;
+            display: inline-block; /*行内块元素*/
+            writing-mode: vertical-lr;/*从左向右 从右向左是 writing-mode: vertical-rl;*/
+            writing-mode: tb-lr;/*IE浏览器的从左向右 从右向左是 writing-mode: tb-rl；*/
+            text-align: center;
+            vertical-align:middle;
+        }
+        .box2 {
+            width: 8%;
+            margin-left: 3%;
+            height: 100px;
+            background: #fff;
+            display: inline-block; /*行内块元素*/
+            text-align: center;
+            vertical-align: middle;
+        }
+    </style>
 </head>
 
 <body>
@@ -78,45 +116,60 @@
         // var b = [{"num": 111, "mark": 'xxx'}, {"num": 222}]
         data.forEach((e) => {
             console.log(e, e["num"])
-            var number = e['number']
-            var departure_station = e['departure_station']
-            var destination = e['destination']
-            var mark = e['mark']
-            var station = ''
-            var id = e['id']
+            let number = e['number']
+            let departure_station = e['departure_station']
+            let destination = e['destination']
+            let mark = e['mark']
+            let station = ''
+            let id = e['id']
             if (departure_station) {
                 station += departure_station
             }
             if (destination) {
                 station += destination
             }
-            var s = '<li>\n' +
-                '            <div class="collapsible-header">\n' +
-                '                <i class="material-icons">directions_bus</i>\n' + number +
-                '                <span class="badge">' + station + '</span></div>\n' +
-                '            <div class="collapsible-body"><p>' +
-                '<button class="btn waves-effect waves-light" name="real_btn" data-id=' + id + '>查看实况' +
-                '<i class="material-icons right">send</i>\n' +
-                '</button>' +
-                '' + mark + '</p></div>\n' +
-                '</li>'
+            let s = '<li><div class="collapsible-header">'
+            s += '<i class="material-icons">directions_bus</i>'+number+''
+            s += '<span class="badge">' + station + '</span></div>'
+            s += '<div class="collapsible-body"><p>'
+            s += '<button class="btn waves-effect waves-light" name="real_btn" data-id=' + id + '>查看实况'
+            s += '<i class="material-icons right">send</i>'
+            s += '</button>'
+            s += '' + mark + '</p></div></li>'
             $('.collapsible').append(s)
         })
     }
 
     $(document).on('click', 'button[name="real_btn"]', function () {
-        console.log("a")
         var a = $(this).attr('data-id')  // b_id
         init_bus_real_info($("#modal_real"), a)
         $('#modal_real').modal('open');
         // M.toast({html: a, classes: 'rounded'})
     })
-
+    
     function init_bus_real_info(obj, b_id) {
         var info = get_real_info(b_id)
-        console.log(info)
-        // console.log("info=",$(obj).children(".modal-content").html())
-        $(obj).children(".modal-content").html("info")
+        let s = get_info_y(info)
+        $(obj).children(".modal-content").html(s)
+    }
+
+    function get_info_y(data) {
+        console.log("data=", data)
+        let s = '<div class="div"><div class="box">'
+        data.forEach((e) => {
+            let name = e['name']
+            if(e["status"] == 0){
+                s += '<div class="box2">->></div>'
+                s += '<div class="box1">'+name+'</div>'
+            }else if(e["status"] == 1){
+                s += '<div class="box2">===</div>'
+                s += '<div class="box1">'+name+'</div>'
+            }else {
+                s += '<div class="box1">'+name+'</div>'
+            }
+        })
+        s += '</div></div>'
+        return s
     }
 
     function get_real_info(b_id) {
@@ -125,9 +178,9 @@
             url: HOST + '/v1/bus/getBusRealTimeInfo/?id='+b_id,
             type: 'GET',
             dataType: 'json',
+            async: false,
             success: function (res) {
-                console.log(res.data)
-                info = "123"
+                info = res.data
             },
             error: function () {
                 console.log("error")
