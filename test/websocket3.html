@@ -75,7 +75,10 @@
                     if (g_ws != null) {
                         //alert(msg.value);
                         log("发送 Socket 消息: " + msg.value);
-                        g_ws.send(msg.value);
+                        g_ws.send(JSON.stringify({
+                            "command":"group",
+                            "msg":msg.value,
+                        }));
                     }
                     else {
                         log("Socket 还未创建!, msg: " + msg.value);
@@ -107,7 +110,7 @@
 
     <body>
         <div id="valueLabel"></div>
-        <textarea rows="20" cols="50" id="contentId"></textarea>
+        <textarea rows="20" cols="80" id="contentId"></textarea>
         <br/>
         <input name="wsUrl" id="wsUrlId" style="width: 300px" value="ws://busapi.cyanzoy.top/chat/"/>
         <button id="createButton" onClick="CreateConnect()">连接socket</button>

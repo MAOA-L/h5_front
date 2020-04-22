@@ -30,18 +30,35 @@
         <!--        </li>-->
     </ul>
 </div>
+<!-- Modal Trigger -->
+<!--<button data-target="modal1" class="btn modal-trigger">Modal</button>-->
+
+<!-- Modal Structure -->
+<div id="modal_real" class="modal bottom-sheet">
+    <div class="modal-content">
+        <h4>Modal Header</h4>
+        <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+</div>
 
 <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="../js/materialize.min.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var elems = document.querySelectorAll('.collapsible');
-        var instances = M.Collapsible.init();
-    });
+    // document.addEventListener('DOMContentLoaded', function () {
+    //     var elems = document.querySelectorAll('.collapsible');
+    //     var instances = M.Collapsible.init();
+    // });
 
+    var HOST = "http://busapi.cyanzoy.top"
     $(document).ready(function () {
         $('.collapsible').collapsible();
+        $('.modal').modal();
     });
+
+
 </script>
 <script>
     $.ajax({
@@ -89,9 +106,36 @@
 
     $(document).on('click', 'button[name="real_btn"]', function () {
         console.log("a")
-        var a = $(this).attr('data-id')
-        M.toast({html: a, classes: 'rounded'})
+        var a = $(this).attr('data-id')  // b_id
+        init_bus_real_info($("#modal_real"), a)
+        $('#modal_real').modal('open');
+        // M.toast({html: a, classes: 'rounded'})
     })
+
+    function init_bus_real_info(obj, b_id) {
+        var info = get_real_info(b_id)
+        console.log(info)
+        // console.log("info=",$(obj).children(".modal-content").html())
+        $(obj).children(".modal-content").html("info")
+    }
+
+    function get_real_info(b_id) {
+        let info = ""
+        $.ajax({
+            url: HOST + '/v1/bus/getBusRealTimeInfo/?id='+b_id,
+            type: 'GET',
+            dataType: 'json',
+            success: function (res) {
+                console.log(res.data)
+                info = "123"
+            },
+            error: function () {
+                console.log("error")
+            }
+
+        })
+        return info
+    }
 
 </script>
 </body>
