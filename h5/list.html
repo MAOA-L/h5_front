@@ -12,14 +12,14 @@
     <style>
         .div {
             overflow: hidden;
-            height: 118px;
+            /*height: 118px;*/
         }
 
         .box {
             background: #eee;
             padding: 10px 0;
             white-space: nowrap; /*文本不会换行，文本会在在同一行上继续*/
-            overflow-y: auto; /*可滑动*/
+            overflow-x: auto; /*可滑动*/
         }
 
         /*自定义滚动条的伪对象选择器, CSS 可以隐藏滚动条*/
@@ -27,31 +27,34 @@
             display: none;
         }*/
         .box1 {
-            width: 8%;
-            margin-left: 3%;
-            height: 100px;
-            /*background: #fff;*/
-            display: inline-block; /*行内块元素*/
-            writing-mode: vertical-lr;/*从左向右 从右向左是 writing-mode: vertical-rl;*/
-            writing-mode: tb-lr;/*IE浏览器的从左向右 从右向左是 writing-mode: tb-rl；*/
-            text-align: center;
-            vertical-align:middle;
+            /*width: 8%;*/
+            /*margin-left: 3%;*/
+            /*height: 100px;*/
+            /*!*background: #fff;*!*/
+            /*display: inline-block; !*行内块元素*!*/
+            /*writing-mode: vertical-lr;!*从左向右 从右向左是 writing-mode: vertical-rl;*!*/
+            /*writing-mode: tb-lr;!*IE浏览器的从左向右 从右向左是 writing-mode: tb-rl；*!*/
+            /*text-align: center;*/
+            /*vertical-align:middle;*/
         }
         .box2 {
-            width: 8%;
-            margin-left: 3%;
-            height: 100px;
-            /*background: #fff;*/
-            display: inline-block; /*行内块元素*/
-            text-align: center;
-            vertical-align: middle;
-            line-height: 100px;
+            /*width: 8%;*/
+            /*margin-left: 3%;*/
+            /*height: 100px;*/
+            /*!*background: #fff;*!*/
+            /*display: inline-block; !*行内块元素*!*/
+            /*text-align: center;*/
+            /*vertical-align: middle;*/
+            /*line-height: 100px;*/
         }
         .color1{
             color: #1d7d74;
         }
         .color2{
             color: #ee6e73;
+        }
+        .middle {
+            vertical-align: middle;
         }
     </style>
 </head>
@@ -168,8 +171,8 @@
             count++
             let name = e['name']
             if(e["status"] == 0){
-                s += '<div class="box1">'+name+'</div>'
-                s += '<div class="box2"><i class="material-icons color2">directions_bus</i></div>'
+                s += '<div class="box1">'+count+'.<i class="material-icons color2 middle">directions_bus</i>'+name+'</div>'
+                // s += '<div class="box2"></div>'
             }else if(e["status"] == 1){
                 // s += '<div class="box2">===</div>'
                 s += '<div class="box1 color1">='+name+'</div>'

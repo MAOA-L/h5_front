@@ -32,9 +32,9 @@
                     var token_shi = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiY2MxOGNkNmEtMjYwZS0xMWU5LTg4NTYtMDAxNjNlMGNjZjNlIiwidXNlcm5hbWUiOiIxMzczODQzNTc0MyIsImV4cCI6MTU4OTcwMzkyMCwiZm9yIjoxLCJlbWFpbCI6bnVsbCwic291cmNlIjoyLCJwd2RfdmVyc2lvbiI6MSwiaXNzdWVyIjoiemhyZC5uYnJkLmdvdi5jbiJ9.WnL7_ov9VG5q6nlvnnwMtqJRZVJfY0nsX_pwVLW-iA4"
                     var token_shi_test = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiY2MxOGNkNmEtMjYwZS0xMWU5LTg4NTYtMDAxNjNlMGNjZjNlIiwidXNlcm5hbWUiOiIxMzczODQzNTc0MyIsImV4cCI6MTU4OTcwMzcxMSwiZm9yIjoxLCJlbWFpbCI6bnVsbCwic291cmNlIjoyLCJwd2RfdmVyc2lvbiI6MywiaXNzdWVyIjoidGVzdF9qdHdfaXNzdWVyIn0.wGJ5poTFTuFAhOFa4YDdlOENH3YtmnXbMqhnZbliMfo"
                     var token_zhang = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiOGUwN2E0OWUtZWZjNC0xMWU5LThjNmMtMDAxNjNlMGNjZjNlIiwidXNlcm5hbWUiOiIxODExMjkxNjY1MSIsImV4cCI6MTU4OTcwNTAyNiwiZm9yIjoxLCJlbWFpbCI6bnVsbCwic291cmNlIjoyLCJwd2RfdmVyc2lvbiI6MSwiaXNzdWVyIjoiemhyZC5uYnJkLmdvdi5jbiJ9.n8riscU7144FfKWgBbDkWoaY_wvNx1K18uKvtLjr8SA"
-                    var token_zyj_test = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZjQ3Yzc5YjAtMjQzYy0xMWU5LWI3YjUtZTBkNTVlOGYyZDlhIiwidXNlcm5hbWUiOiIxMzYwNTg4ODc4NyIsImV4cCI6MTU4OTcwNzk2NSwiZm9yIjoxLCJlbWFpbCI6bnVsbCwic291cmNlIjoyLCJwd2RfdmVyc2lvbiI6MSwiaXNzdWVyIjoidGVzdF9qdHdfaXNzdWVyIn0.uu6_yivTecod--IRRH-IdK7CLu8zTXd6tNNesg-vu7o"
+                    var token_zhang_test = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiYzU2ZWY0MTgtZWZjNS0xMWU5LWIyZjAtZmExNjdlZmRlOGI1IiwidXNlcm5hbWUiOiIxODExMjkxNjY1MSIsImV4cCI6MTU5MDIwMjM4MCwiZm9yIjoxLCJlbWFpbCI6bnVsbCwic291cmNlIjoyLCJwd2RfdmVyc2lvbiI6MSwiaXNzdWVyIjoiZGV2X2p0d19pc3N1ZXIifQ.n4NPJ-2by6lX_IupxPgZR0e017hBO9ARQ4JQkjumcrI"
                     if (g_ws == null) {
-                        var wsUrlValue = msg.value;
+                        var wsUrlValue = msg.value + token_zhang_test;
                         console.log(wsUrlValue)
                         try {
                             g_ws = new WebSocket(wsUrlValue);
@@ -113,7 +113,7 @@
         <div id="valueLabel"></div>
         <textarea rows="20" cols="80" id="contentId"></textarea>
         <br/>
-        <input name="wsUrl" id="wsUrlId" style="width: 300px" value="ws://busapi.cyanzoy.top/chat/"/>
+        <input name="wsUrl" id="wsUrlId" style="width: 300px" value="ws://127.0.0.1/chat/?"/>
         <button id="createButton" onClick="CreateConnect()">连接socket</button>
         <button id="closeButton" onClick="CloseConnect()">断开socket</button>
         <br/>
