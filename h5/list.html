@@ -171,11 +171,12 @@
             count++
             let name = e['name']
             if(e["status"] == 0){
-                s += '<div class="box1">'+count+'.<i class="material-icons color2 middle">directions_bus</i>'+name+'</div>'
+                s += '<div class="box1">'+count+'.'+name+'</div>'
+                s += '<div class="box1"><i class="material-icons color2 middle">directions_bus</i></div>'
                 // s += '<div class="box2"></div>'
             }else if(e["status"] == 1){
                 // s += '<div class="box2">===</div>'
-                s += '<div class="box1 color1">='+name+'</div>'
+                s += '<div class="box1 color1">='+count+'.'+name+'</div>'
             }else {
                 s += '<div class="box1">'+count+'.'+name+'</div>'
             }
